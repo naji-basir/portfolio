@@ -1,0 +1,735 @@
+<!doctype html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Basir Naji | Full-Stack Portfolio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!--
+      Tailwind's Play CDN reads window.tailwind.config the moment it loads.
+      It has to stay inline and run before any deferred external script,
+      otherwise the custom colors/spacing/fontSize below won't apply.
+    -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#feffff",
+              "primary-container": "#c15433",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-container-lowest": "#0e0e0e",
+              "surface-container-highest": "#353534",
+              "inverse-on-surface": "#313030",
+              "surface-container-high": "#2a2a2a",
+              "on-secondary-fixed-variant": "#474746",
+              tertiary: "#75d4e6",
+              "on-surface-variant": "#dec0b8",
+              "on-primary-fixed-variant": "#822708",
+              "surface-container": "#201f1f",
+              outline: "#a58b84",
+              "on-primary": "#5f1600",
+              background: "#131313",
+              "tertiary-fixed-dim": "#75d4e6",
+              "primary-fixed-dim": "#ffb59f",
+              "primary-fixed": "#ffdbd1",
+              "outline-variant": "#57423c",
+              "tertiary-fixed": "#9eefff",
+              "on-tertiary": "#00363e",
+              "surface-container-low": "#1c1b1b",
+              "on-surface": "#e5e2e1",
+              primary: "#ffb59f",
+              "secondary-container": "#474746",
+              "surface-tint": "#ffb59f",
+              "on-background": "#e5e2e1",
+              "on-primary-container": "#fffeff",
+              "surface-variant": "#353534",
+              "on-tertiary-fixed-variant": "#004e59",
+              "tertiary-container": "#008292",
+              "on-error-container": "#ffdad6",
+              "surface-dim": "#131313",
+              "on-secondary-container": "#b7b5b4",
+              "on-primary-fixed": "#3b0a00",
+              surface: "#131313",
+              "on-tertiary-fixed": "#001f24",
+              "surface-bright": "#3a3939",
+              "inverse-primary": "#a23e1f",
+              "inverse-surface": "#e5e2e1",
+              error: "#ffb4ab",
+              "on-secondary": "#313030",
+              "secondary-fixed": "#e5e2e1",
+              secondary: "#c8c6c5",
+              "on-error": "#690005",
+              "on-secondary-fixed": "#1c1b1b",
+              "error-container": "#93000a",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              "section-gap": "100px",
+              "margin-mobile": "20px",
+              "container-max": "1200px",
+              unit: "8px",
+              gutter: "24px",
+            },
+            fontFamily: {
+              "display-xl": ["Space Grotesk"],
+              "headline-lg-mobile": ["Space Grotesk"],
+              "body-lg": ["Inter"],
+              "headline-md": ["Space Grotesk"],
+              "body-md": ["Inter"],
+              "headline-lg": ["Space Grotesk"],
+              "label-caps": ["Space Grotesk"],
+              "display-xl-mobile": ["Space Grotesk"],
+            },
+            fontSize: {
+              "display-xl": [
+                "72px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.03em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-lg-mobile": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-md": ["24px", { lineHeight: "1.4", fontWeight: "500" }],
+              "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-lg": [
+                "40px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "label-caps": [
+                "14px",
+                { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" },
+              ],
+              "display-xl-mobile": [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-body-md text-on-surface">
+    <canvas id="dot-bg"></canvas>
+
+    <div id="app">
+      <!-- TopNavBar -->
+      <nav
+        class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5 transition-all duration-300 ease-in-out"
+      >
+        <div
+          class="flex justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto h-20"
+        >
+          <a class="font-display-xl text-headline-md accent-text" href="#">
+            BASIR NAJI
+          </a>
+          <div class="hidden md:flex gap-8 items-center">
+            <a
+              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              href="#skills"
+              >Skills</a
+            >
+            <a
+              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              href="#projects"
+              >Projects</a
+            >
+            <a
+              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              href="#about"
+              >About</a
+            >
+            <a
+              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              href="#contact"
+              >Contact</a
+            >
+          </div>
+          <a
+            class="accent-bg text-on-primary-container px-6 py-2 font-label-caps hover:opacity-90 transition-all"
+            href="#"
+            >Resume</a
+          >
+          <!-- <button class="md:hidden accent-text" aria-label="Open menu">
+            <span class="material-symbols-outlined">menu</span>
+          </button> -->
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+      <header
+        class="relative min-h-screen flex flex-col items-center justify-center pt-20 px-margin-mobile text-center overflow-hidden"
+      >
+        <div class="z-10 max-w-4xl">
+          <h1
+            class="font-display-xl text-display-xl-mobile md:text-display-xl mb-6 tracking-tight"
+          >
+            BASIR NAJI
+          </h1>
+          <div class="inline-block mb-8 h-10 overflow-hidden">
+            <p
+              class="typewriter font-display-xl text-headline-md accent-text leading-none"
+            >
+              CS Student | Full-Stack Developer | AI &amp; Cloud Enthusiast
+            </p>
+          </div>
+          <p
+            class="font-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto opacity-90"
+          >
+            Building modern web applications with a focus on quality,
+            performance, and continuous learning
+          </p>
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              class="px-10 py-4 accent-bg text-on-primary-container font-label-caps transition-all hover:opacity-90 flex items-center justify-center gap-2"
+              href="#projects"
+            >
+              View Projects
+              <span class="material-symbols-outlined text-sm"
+                >arrow_forward</span
+              >
+            </a>
+            <a
+              class="px-10 py-4 border border-white/20 hover:accent-border transition-colors font-label-caps flex items-center justify-center"
+              href="#contact"
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+        <div class="absolute bottom-5 animate-bounce text-outline">
+          <span class="material-symbols-outlined">expand_more</span>
+        </div>
+      </header>
+
+      <!-- Skills Section -->
+      <section
+        class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto"
+        id="skills"
+      >
+        <div class="mb-16">
+          <span class="font-label-caps accent-text tracking-widest block mb-4"
+            >CAPABILITIES</span
+          >
+          <h2
+            class="font-display-xl text-headline-lg-mobile md:text-headline-lg"
+          >
+            Tech Stack
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="p-8 border border-white/10 terracotta-glow flex flex-col gap-6"
+          >
+            <span class="material-symbols-outlined accent-text text-4xl"
+              >code</span
+            >
+            <h3 class="font-headline-md">Languages</h3>
+            <ul class="space-y-3 text-on-surface-variant">
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> JS / TS
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> Python
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> Java
+              </li>
+            </ul>
+          </div>
+          <div
+            class="p-8 border border-white/10 terracotta-glow flex flex-col gap-6"
+          >
+            <span class="material-symbols-outlined accent-text text-4xl"
+              >layers</span
+            >
+            <h3 class="font-headline-md">Frameworks</h3>
+            <ul class="space-y-3 text-on-surface-variant">
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> React / Next.js
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> Tailwind CSS
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> Node.js / NestJS
+              </li>
+            </ul>
+          </div>
+          <div
+            class="p-8 border border-white/10 terracotta-glow flex flex-col gap-6"
+          >
+            <span class="material-symbols-outlined accent-text text-4xl"
+              >database</span
+            >
+            <h3 class="font-headline-md">Databases</h3>
+            <ul class="space-y-3 text-on-surface-variant">
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> MySQL
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> PostgreSQL &amp; Neon
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> MongoDB
+              </li>
+            </ul>
+          </div>
+          <div
+            class="p-8 border border-white/10 terracotta-glow flex flex-col gap-6"
+          >
+            <span class="material-symbols-outlined accent-text text-4xl"
+              >terminal</span
+            >
+            <h3 class="font-headline-md">Tools</h3>
+            <ul class="space-y-3 text-on-surface-variant">
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> Git / GitHub
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> Figma
+              </li>
+              <!-- <li class="flex items-center gap-2">
+                <span class="w-1 h-1 accent-bg"></span> PostgreSQL / Redis
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section
+        class="py-section-gap bg-surface-container-lowest/50"
+        id="projects"
+      >
+        <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+          <div
+            class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
+          >
+            <div>
+              <span
+                class="font-label-caps accent-text tracking-widest block mb-4"
+                >PORTFOLIO</span
+              >
+              <h2
+                class="font-display-xl text-headline-lg-mobile md:text-headline-lg"
+              >
+                Selected Projects
+              </h2>
+            </div>
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="node-pulse w-2 h-2 rounded-full accent-bg"></span>
+              <span class="font-label-caps">Current Focus: AI Scaling</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div
+              class="group relative bg-[#121212] border border-white/5 p-8 transition-all hover:-translate-y-2 hover:accent-border"
+            >
+              <div class="relative z-10">
+                <div class="flex gap-2 mb-6 flex-wrap">
+                  <span
+                    class="px-3 py-1 bg-white/5 text-[10px] font-label-caps border border-white/10"
+                    >OPENAI API</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-white/5 text-[10px] font-label-caps border border-white/10"
+                    >NEXT.JS</span
+                  >
+                </div>
+                <h4
+                  class="font-headline-md mb-4 group-hover:accent-text transition-colors"
+                >
+                  NeuralArchive
+                </h4>
+                <p class="text-on-surface-variant mb-8 text-sm leading-relaxed">
+                  Semantic search engine for technical documentation using
+                  vector embeddings and RAG architecture. Reduces developer
+                  onboarding time by 40%.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div class="flex gap-4">
+                    <a
+                      class="text-outline hover:accent-text"
+                      href="#"
+                      aria-label="View source"
+                      ><span class="material-symbols-outlined text-xl"
+                        >code</span
+                      ></a
+                    >
+                    <a
+                      class="text-outline hover:accent-text"
+                      href="#"
+                      aria-label="Open live demo"
+                      ><span class="material-symbols-outlined text-xl"
+                        >open_in_new</span
+                      ></a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="group relative bg-[#121212] border border-white/5 p-8 transition-all hover:-translate-y-2 hover:accent-border"
+            >
+              <div class="relative z-10">
+                <div class="flex gap-2 mb-6 flex-wrap">
+                  <span
+                    class="px-3 py-1 bg-white/5 text-[10px] font-label-caps border border-white/10"
+                    >KUBERNETES</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-white/5 text-[10px] font-label-caps border border-white/10"
+                    >TERRAFORM</span
+                  >
+                </div>
+                <h4
+                  class="font-headline-md mb-4 group-hover:accent-text transition-colors"
+                >
+                  CloudScale Automator
+                </h4>
+                <p class="text-on-surface-variant mb-8 text-sm leading-relaxed">
+                  Automated infrastructure provisioning pipeline that handles
+                  multi-cloud deployments with built-in cost optimization and
+                  security monitoring.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div class="flex gap-4">
+                    <a
+                      class="text-outline hover:accent-text"
+                      href="#"
+                      aria-label="View source"
+                      ><span class="material-symbols-outlined text-xl"
+                        >code</span
+                      ></a
+                    >
+                    <a
+                      class="text-outline hover:accent-text"
+                      href="#"
+                      aria-label="Open live demo"
+                      ><span class="material-symbols-outlined text-xl"
+                        >open_in_new</span
+                      ></a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="group relative bg-[#121212] border border-white/5 p-8 transition-all hover:-translate-y-2 hover:accent-border"
+            >
+              <div class="relative z-10">
+                <div class="flex gap-2 mb-6 flex-wrap">
+                  <span
+                    class="px-3 py-1 bg-white/5 text-[10px] font-label-caps border border-white/10"
+                    >FASTAPI</span
+                  >
+                  <span
+                    class="px-3 py-1 bg-white/5 text-[10px] font-label-caps border border-white/10"
+                    >REDIS</span
+                  >
+                </div>
+                <h4
+                  class="font-headline-md mb-4 group-hover:accent-text transition-colors"
+                >
+                  RealTime Analytics
+                </h4>
+                <p class="text-on-surface-variant mb-8 text-sm leading-relaxed">
+                  High-throughput data ingestion engine processing 10k+
+                  events/second with sub-millisecond latency for real-time
+                  visualization.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div class="flex gap-4">
+                    <a
+                      class="text-outline hover:accent-text"
+                      href="#"
+                      aria-label="View source"
+                      ><span class="material-symbols-outlined text-xl"
+                        >code</span
+                      ></a
+                    >
+                    <a
+                      class="text-outline hover:accent-text"
+                      href="#"
+                      aria-label="Open live demo"
+                      ><span class="material-symbols-outlined text-xl"
+                        >open_in_new</span
+                      ></a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Me Section -->
+      <section
+        class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto"
+        id="about"
+      >
+        <div class="flex flex-col lg:flex-row items-center gap-20">
+          <div class="lg:flex-cols-1">
+            <span
+              class="font-label-caps accent-text tracking-widest block mb-4"
+            >
+              BIOGRAPHY
+            </span>
+
+            <h2
+              class="font-display-xl text-headline-lg-mobile md:text-headline-lg mb-8"
+            >
+              Building Modern Full-Stack Applications
+            </h2>
+
+            <div
+              class="space-y-6 text-body-lg text-on-surface-variant leading-relaxed"
+            >
+              <p>
+                I'm a full-stack developer passionate about building modern web
+                applications and writing clean, maintainable code. My journey
+                started with curiosity about how the web works and has grown
+                into creating complete applications from the database to the
+                user interface.
+              </p>
+
+              <!-- <p>
+                I'm continuously expanding my knowledge of backend development,
+                software architecture, databases, and cloud technologies while
+                building real-world projects that strengthen both my technical
+                and problem-solving skills.
+              </p> -->
+            </div>
+            <div class="mt-12 grid grid-cols-2 gap-8">
+              <div>
+                <p class="font-display-xl text-headline-lg accent-text mb-1">
+                  3.9
+                </p>
+                <p class="font-label-caps text-outline uppercase">CS GPA</p>
+              </div>
+              <div>
+                <p class="font-display-xl text-headline-lg accent-text mb-1">
+                  15+
+                </p>
+                <p class="font-label-caps text-outline uppercase">
+                  Projects Built
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="g:flex-cols-1 relative aspect-square w-full max-w-md lg:max-w-none"
+          >
+            <div
+              class="absolute inset-0 border accent-border/20 rotate-3 transition-transform hover:rotate-0 duration-700"
+            ></div>
+            <div
+              class="absolute inset-0 border border-white/10 -rotate-3 transition-transform hover:rotate-0 duration-700"
+            ></div>
+            <div
+              class="w-full h-full bg-[#121212] overflow-hidden contrast-125 transition-all"
+            >
+              <img
+                src="public/Gemini_Generated_Image_tr2pkwtr2pkwtr2p.webp"
+                alt="Portrait of Basir Naji"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div
+              class="absolute -bottom-6 -right-6 p-6 bg-background border border-white/5 flex items-center gap-4"
+            >
+              <div
+                class="w-12 h-12 flex items-center justify-center rounded-full accent-bg text-on-primary-container"
+              >
+                <span class="material-symbols-outlined">psychology</span>
+              </div>
+              <div>
+                <p class="font-label-caps text-xs">STATUS</p>
+                <p class="font-body-md font-bold">Innovating</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Me Section -->
+      <section class="py-section-gap px-margin-mobile" id="contact">
+        <div class="max-w-2xl mx-auto text-center mb-16">
+          <span class="font-label-caps accent-text tracking-widest block mb-4"
+            >CONTACT</span
+          >
+          <h2
+            class="font-display-xl text-headline-lg-mobile md:text-headline-lg mb-6"
+          >
+            Let's Build Something Great
+          </h2>
+          <p class="text-on-surface-variant font-body-md">
+            Currently looking for internships and collaborative opportunities in
+            AI/Cloud engineering.
+          </p>
+        </div>
+        <form class="max-w-xl mx-auto space-y-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="relative">
+              <label class="sr-only" for="name">Your name</label>
+              <input
+                id="name"
+                class="focus:ring-0 form-field w-full bg-[#050505] border-0 focus:border-b-2 focus:border-orange-500 form-field px-2 py-4 transition-all placeholder:text-outline/40"
+                placeholder="Your Name"
+                type="text"
+              />
+            </div>
+            <div class="relative">
+              <label class="sr-only" for="email">Email address</label>
+              <input
+                id="email"
+                class="focus:ring-0 form-field w-full bg-[#050505] border-0 focus:border-b-2 focus:border-orange-500 form-field px-2 py-4 transition-all placeholder:text-outline/40"
+                placeholder="Email Address"
+                type="email"
+              />
+            </div>
+          </div>
+          <div class="relative">
+            <label class="sr-only" for="message">Your message</label>
+            <textarea
+              id="message"
+              class="focus:ring-0 form-field w-full bg-[#050505] border-0 focus:border-b-2 focus:border-orange-500 form-field px-2 py-4 transition-all placeholder:text-outline/40"
+              placeholder="Your Message"
+              rows="4"
+            ></textarea>
+          </div>
+          <button
+            class="w-full py-5 accent-bg text-on-primary-container font-label-caps tracking-widest hover:opacity-90 transition-all"
+            type="submit"
+          >
+            SEND MESSAGE
+          </button>
+        </form>
+        <div class="mt-20 flex justify-center gap-12">
+          <a
+            class="group flex flex-col items-center gap-3"
+            href="https://github.com/naji-basir/"
+          >
+            <div
+              class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:accent-border group-hover:accent-text transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="24"
+                height="24"
+              >
+                <path
+                  d="M12 .297C5.373.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.725-4.042-1.61-4.042-1.61-.547-1.387-1.335-1.757-1.335-1.757-1.09-.745.082-.73.082-.73 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.776.42-1.305.763-1.605-2.665-.304-5.467-1.332-5.467-5.93 0-1.31.467-2.38 1.236-3.22-.123-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.49 11.49 0 0 1 3.003-.404c1.02.005 2.047.138 3.004.404 2.29-1.552 3.297-1.23 3.297-1.23.655 1.653.242 2.873.12 3.176.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.102.814 2.222 0 1.606-.014 2.902-.014 3.297 0 .322.216.694.825.576C20.565 22.092 24 17.596 24 12.297 24 5.67 18.627.297 12 .297z"
+                />
+              </svg>
+            </div>
+            <span
+              class="font-label-caps text-xs opacity-60 group-hover:opacity-100"
+              >GitHub</span
+            >
+          </a>
+          <a
+            class="group flex flex-col items-center gap-3"
+            href="https://www.linkedin.com/in/basir-naji-is"
+          >
+            <div
+              class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:accent-border group-hover:accent-text transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="24"
+                height="24"
+              >
+                <path
+                  d="M20.447 20.452H16.89v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.344V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.604 0 4.27 2.372 4.27 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM7.119 20.452H3.555V9h3.564v11.452z"
+                />
+              </svg>
+            </div>
+            <span
+              class="font-label-caps text-xs opacity-60 group-hover:opacity-100"
+              >LinkedIn</span
+            >
+          </a>
+          <a
+            class="group flex flex-col items-center gap-3"
+            href="https://x.com/naji_basir"
+          >
+            <div
+              class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:accent-border group-hover:accent-text transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="24"
+                height="24"
+              >
+                <path
+                  d="M18.901 1.153H22.58l-8.03 9.177L24 22.847h-7.406l-5.8-7.584-6.64 7.584H.473l8.59-9.816L0 1.153h7.594l5.243 6.932L18.901 1.153zm-1.292 19.49h2.045L6.482 3.247H4.288L17.609 20.643z"
+                />
+              </svg>
+            </div>
+            <span
+              class="font-label-caps text-xs opacity-60 group-hover:opacity-100"
+              >Twitter</span
+            >
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer
+        class="w-full py-6 border-t border-white/5 bg-surface-container-lowest"
+      >
+        <div
+          class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto gap-8"
+        >
+          <div class="flex items-center justify-center w-full gap-6">
+            <span class="font-display-xl text-headline-md">BASIR NAJI</span>
+            <span class="h-4 w-[1px] bg-white/10 hidden md:block"></span>
+            <p class="font-body-md text-on-secondary-fixed-variant opacity-80">
+              © 2026 Built with Precision &amp; Code
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+:root {
+  /* Single source of truth for the accent — change this one line to re-theme the whole site */
+  --accent: oklch(47.3% 0.137 46.201);
+  --accent-soft: oklch(47.3% 0.137 46.201 / 0.12);
+  --accent-glow: oklch(47.3% 0.137 46.201 / 0.35);
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #e5e2e1;
+  scroll-behavior: smooth;
+  margin: 0;
+}
+
+.form-field {
+  width: 100%;
+  background: #050505;
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 1rem 0.5rem;
+  transition:
+    border-color 0.2s ease,
+    border-width 0.2s ease;
+  outline: none;
+  box-shadow: none;
+}
+
+.form-field:focus {
+  border-bottom: 2px solid #f97316; /* orange-500 */
+  outline: none;
+  box-shadow: none;
+}
+
+.form-field::placeholder {
+  color: #6b7280;
+}
+
+/* Interactive dotted background canvas */
+#dot-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+}
+
+.accent-text {
+  color: var(--accent);
+}
+.accent-bg {
+  background-color: var(--accent);
+}
+.accent-border {
+  border-color: var(--accent);
+}
+
+.terracotta-glow {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.terracotta-glow:hover {
+  border-color: color-mix(in oklch, var(--accent) 40%, transparent);
+  box-shadow: 0 0 40px -10px var(--accent-glow);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--accent);
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: -0.02em;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret 0.75s step-end infinite;
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--accent);
+  }
+}
+
+.node-pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 300,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter,
+  .node-pulse {
+    animation: none;
+  }
+}
