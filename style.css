@@ -12,29 +12,6 @@ body {
   margin: 0;
 }
 
-.form-field {
-  width: 100%;
-  background: #050505;
-  border: none;
-  border-bottom: 1px solid transparent;
-  padding: 1rem 0.5rem;
-  transition:
-    border-color 0.2s ease,
-    border-width 0.2s ease;
-  outline: none;
-  box-shadow: none;
-}
-
-.form-field:focus {
-  border-bottom: 2px solid #f97316; /* orange-500 */
-  outline: none;
-  box-shadow: none;
-}
-
-.form-field::placeholder {
-  color: #6b7280;
-}
-
 /* Interactive dotted background canvas */
 #dot-bg {
   position: fixed;
@@ -127,5 +104,23 @@ body {
   .typewriter,
   .node-pulse {
     animation: none;
+  }
+}
+
+.tagline-wrap {
+  height: 2.2em;
+}
+
+/* Below ~640px the nowrap+typing animation overflows the viewport —
+   drop the effect and let the tagline wrap like normal text instead. */
+@media (max-width: 640px) {
+  .tagline-wrap {
+    height: auto;
+  }
+  .typewriter {
+    white-space: normal;
+    border-right: none;
+    animation: none;
+    width: auto;
   }
 }
