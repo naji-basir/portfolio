@@ -163,3 +163,44 @@ document.querySelectorAll("section").forEach((section) => {
   window.addEventListener("resize", onScroll);
   updateActiveNav();
 })();
+
+// Contact form — submit via Formspree without leaving the page
+(function () {
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector("button[type='submit']");
+    submitBtn.disabled = true;
+    status.textContent = "";
+    status.className =
+      "text-center font-label-caps text-sm text-on-surface-variant";
+    status.textContent = "Sending...";
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        status.classList.remove("text-on-surface-variant");
+        status.classList.add("accent-text");
+        status.textContent = "Message sent — thanks for reaching out!";
+        form.reset();
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (err) {
+      status.classList.remove("text-on-surface-variant", "accent-text");
+      status.classList.add("text-red-400");
+      status.textContent =
+        "Something went wrong — please email me directly instead.";
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
