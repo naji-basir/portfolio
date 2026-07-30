@@ -1,5 +1,4 @@
 // Reveal animation on scroll
-
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -28,6 +27,12 @@ document.querySelectorAll("section").forEach((section) => {
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
+  // Touch devices (phones/tablets) never fire mousemove from a normal tap or scroll,
+  // so the cursor-glow effect can never actually appear there — running a 60fps
+  // redraw loop for it would just burn battery/CPU for nothing. Draw the static
+  // grid once instead and skip the animation loop entirely.
+  const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+  const shouldAnimate = !reduceMotion && hasFinePointer;
 
   const GAP = 18;
   const DOT_RADIUS = 1;
@@ -99,13 +104,62 @@ document.querySelectorAll("section").forEach((section) => {
   });
   window.addEventListener("resize", resize);
   window.addEventListener("scroll", () => {
-    if (reduceMotion) draw();
+    if (!shouldAnimate) draw();
   });
 
   resize();
-  if (reduceMotion) {
-    draw();
-  } else {
+  if (shouldAnimate) {
     loop();
+  } else {
+    draw();
   }
+})();
+
+// Scroll-spy — highlight the nav link matching the section currently in view
+(function () {
+  const navLinks = document.querySelectorAll(".nav-link[data-section]");
+  if (!navLinks.length) return;
+
+  // Sections in document order (matters — the algorithm below relies on it)
+  const sections = Array.from(navLinks)
+    .map((link) => document.getElementById(link.dataset.section))
+    .filter(Boolean);
+
+  const setActive = (id) => {
+    navLinks.forEach((link) => {
+      link.classList.toggle("active", link.dataset.section === id);
+    });
+  };
+
+  let ticking = false;
+
+  function updateActiveNav() {
+    // A section is "current" once its top has scrolled past this line near
+    // the top of the viewport. Walking sections in order and keeping the
+    // last one that qualifies avoids the ambiguity of "which overlapping
+    // section counts" that IntersectionObserver ran into.
+    const triggerLine = window.innerHeight * 0.35;
+    let currentId = sections[0].id;
+
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= triggerLine) {
+        currentId = section.id;
+      } else {
+        break;
+      }
+    }
+    setActive(currentId);
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(updateActiveNav);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  updateActiveNav();
 })();

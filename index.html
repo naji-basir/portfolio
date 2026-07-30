@@ -7,6 +7,7 @@
       name="google-site-verification"
       content="ZTSYeQRv06YjNHbk3aOMjaIzejgBFZKZESzgdX4dNRM"
     />
+
     <meta
       name="description"
       content="Basir Naji — Computer Science student and full-stack developer specializing in React, Node.js, and cloud-based applications."
@@ -17,7 +18,7 @@
     />
     <link rel="canonical" href="https://basirnaji.vercel.app/" />
 
-    <!-- Open Graph (how it looks when shared on social/some search previews) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Basir Naji | Full-Stack Developer" />
     <meta
       property="og:description"
@@ -66,6 +67,8 @@
       sizes="512x512"
       href="./favicon/icon-512.png"
     />
+    <link rel="manifest" href="./favicon/manifest.json" />
+    <meta name="theme-color" content="#0d0d0d" />
     <!--
       Tailwind's Play CDN reads window.tailwind.config the moment it loads.
       It has to stay inline and run before any deferred external script,
@@ -194,9 +197,9 @@
       };
     </script>
   </head>
+
   <body class="font-body-md text-on-surface">
     <canvas id="dot-bg"></canvas>
-
     <div id="app">
       <!-- TopNavBar -->
       <nav
@@ -205,28 +208,40 @@
         <div
           class="flex justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto h-20"
         >
-          <a class="font-display-xl text-headline-md accent-text" href="#">
-            BASIR NAJI
-          </a>
+          <a
+            class="font-display-xl text-headline-md tracking-tighter text-on-surface"
+            href="#home"
+            >BASIR NAJI</a
+          >
           <div class="hidden md:flex gap-8 items-center">
             <a
-              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              class="nav-link text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              href="#home"
+              data-section="home"
+              >Home</a
+            >
+            <a
+              class="nav-link text-on-surface-variant hover:accent-text transition-colors font-body-md"
               href="#skills"
+              data-section="skills"
               >Skills</a
             >
             <a
-              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              class="nav-link text-on-surface-variant hover:accent-text transition-colors font-body-md"
               href="#projects"
+              data-section="projects"
               >Projects</a
             >
             <a
-              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              class="nav-link text-on-surface-variant hover:accent-text transition-colors font-body-md"
               href="#about"
+              data-section="about"
               >About</a
             >
             <a
-              class="text-on-surface-variant hover:accent-text transition-colors font-body-md"
+              class="nav-link text-on-surface-variant hover:accent-text transition-colors font-body-md"
               href="#contact"
+              data-section="contact"
               >Contact</a
             >
           </div>
@@ -236,14 +251,12 @@
             download="Basir Naji Resume July 2026.pdf"
             >Resume</a
           >
-          <!-- <button class="md:hidden accent-text" aria-label="Open menu">
-            <span class="material-symbols-outlined">menu</span>
-          </button> -->
         </div>
       </nav>
 
       <!-- Hero Section -->
       <header
+        id="home"
         class="relative min-h-screen flex flex-col items-center justify-center pt-20 px-margin-mobile text-center overflow-hidden"
       >
         <div class="z-10 max-w-4xl">
@@ -375,9 +388,6 @@
               <li class="flex items-center gap-2">
                 <span class="w-1 h-1 accent-bg"></span> Figma
               </li>
-              <!-- <li class="flex items-center gap-2">
-                <span class="w-1 h-1 accent-bg"></span> PostgreSQL / Redis
-              </li> -->
             </ul>
           </div>
         </div>
@@ -395,7 +405,7 @@
             <div>
               <span
                 class="font-label-caps accent-text tracking-widest block mb-4"
-                >PORTFOLIO</span
+                >PROJECTS</span
               >
               <h2
                 class="font-display-xl text-headline-lg-mobile md:text-headline-lg"
@@ -478,7 +488,7 @@
                 <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
                   This is an AI powered chat bot, using the API of Ollama Cloud.
                   This is an interesting start for me to developing AI powered
-                  Apps
+                  Apps.
                 </p>
                 <div class="flex justify-between items-center">
                   <div class="flex gap-4">
@@ -522,8 +532,8 @@
                   Clinic System
                 </h4>
                 <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
-                  A clicin system to restore patient details, medicine details,
-                  appointments and ... for daily activties of a clinic.
+                  A clinic system to record patient details, medicine details,
+                  appointments, and other daily activities of a clinic.
                 </p>
                 <div class="flex justify-between items-center">
                   <div class="flex gap-4">
@@ -557,19 +567,15 @@
         id="about"
       >
         <div class="flex flex-col lg:flex-row items-center gap-20">
-          <div class="lg:flex-cols-1">
-            <span
-              class="font-label-caps accent-text tracking-widest block mb-4"
+          <div class="lg:w-2/3">
+            <span class="font-label-caps accent-text tracking-widest block mb-4"
+              >ABOUT ME</span
             >
-              BIOGRAPHY
-            </span>
-
             <h2
               class="font-display-xl text-headline-lg-mobile md:text-headline-lg mb-8"
             >
-              Building Modern Full-Stack Applications
+              Building Modern Full-Stack Web Apps
             </h2>
-
             <div
               class="space-y-6 text-body-lg text-on-surface-variant leading-relaxed"
             >
@@ -580,33 +586,58 @@
                 into creating complete applications from the database to the
                 user interface.
               </p>
-
-              <!-- <p>
-                I'm continuously expanding my knowledge of backend development,
-                software architecture, databases, and cloud technologies while
-                building real-world projects that strengthen both my technical
-                and problem-solving skills.
-              </p> -->
             </div>
-            <div class="mt-12 grid grid-cols-2 gap-8">
-              <div>
-                <p class="font-display-xl text-headline-lg accent-text mb-1">
-                  3.9
+            <div class="mt-12 flex flex-wrap gap-x-10 gap-y-8">
+              <div
+                class="pr-10 border-r border-white/10 last:border-r-0 last:pr-0"
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  class="accent-text w-9 h-9 mb-1"
+                >
+                  <title>Google Maps</title>
+                  <path
+                    d="M19.527 4.799c1.212 2.608.937 5.678-.405 8.173-1.101 2.047-2.744 3.74-4.098 5.614-.619.858-1.244 1.75-1.669 2.727-.141.325-.263.658-.383.992-.121.333-.224.673-.34 1.008-.109.314-.236.684-.627.687h-.007c-.466-.001-.579-.53-.695-.887-.284-.874-.581-1.713-1.019-2.525-.51-.944-1.145-1.817-1.79-2.671L19.527 4.799zM8.545 7.705l-3.959 4.707c.724 1.54 1.821 2.863 2.871 4.18.247.31.494.622.737.936l4.984-5.925-.029.01c-1.741.601-3.691-.291-4.392-1.987a3.377 3.377 0 0 1-.209-.716c-.063-.437-.077-.761-.004-1.198l.001-.007zM5.492 3.149l-.003.004c-1.947 2.466-2.281 5.88-1.117 8.77l4.785-5.689-.058-.05-3.607-3.035zM14.661.436l-3.838 4.563a.295.295 0 0 1 .027-.01c1.6-.551 3.403.15 4.22 1.626.176.319.323.683.377 1.045.068.446.085.773.012 1.22l-.003.016 3.836-4.561A8.382 8.382 0 0 0 14.67.439l-.009-.003zM9.466 5.868L14.162.285l-.047-.012A8.31 8.31 0 0 0 11.986 0a8.439 8.439 0 0 0-6.169 2.766l-.016.018 3.665 3.084z"
+                  />
+                </svg>
+                <p
+                  class="font-label-caps text-outline uppercase tracking-wider"
+                >
+                  Kabul,<br class="md:hidden" />
+                  Afghanistan
                 </p>
-                <p class="font-label-caps text-outline uppercase">CS GPA</p>
               </div>
-              <div>
+              <div
+                class="pr-10 border-r border-white/10 last:border-r-0 last:pr-0"
+              >
                 <p class="font-display-xl text-headline-lg accent-text mb-1">
-                  15+
+                  5+
                 </p>
-                <p class="font-label-caps text-outline uppercase">
+                <p
+                  class="font-label-caps text-outline uppercase tracking-wider"
+                >
                   Projects Built
+                </p>
+              </div>
+              <div
+                class="pr-10 border-r border-white/10 last:border-r-0 last:pr-0"
+              >
+                <p class="font-display-xl text-headline-lg accent-text mb-1">
+                  2+
+                </p>
+                <p
+                  class="font-label-caps text-outline uppercase tracking-wider"
+                >
+                  Years Experience
                 </p>
               </div>
             </div>
           </div>
           <div
-            class="g:flex-cols-1 relative aspect-square w-full max-w-md lg:max-w-none"
+            class="lg:w-1/3 relative aspect-square w-full max-w-md lg:max-w-none"
           >
             <div
               class="absolute inset-0 border accent-border/20 rotate-3 transition-transform hover:rotate-0 duration-700"
@@ -776,9 +807,13 @@
         <div
           class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto gap-8"
         >
-          <div class="flex items-center justify-center w-full gap-6">
-            <span class="font-display-xl text-headline-md">BASIR NAJI</span>
-            <span class="h-4 w-[1px] bg-white/10 hidden md:block"></span>
+          <div
+            class="flex flex-col sm:flex-row items-center justify-center w-full gap-3 sm:gap-6 text-center"
+          >
+            <span class="font-display-xl text-headline-md whitespace-nowrap"
+              >BASIR NAJI</span
+            >
+            <span class="h-4 w-[1px] bg-white/10 hidden sm:block"></span>
             <p class="font-body-md text-on-secondary-fixed-variant opacity-80">
               © 2026 Built with Precision &amp; Code
             </p>

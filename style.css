@@ -37,6 +37,10 @@ body {
   border-color: var(--accent);
 }
 
+.nav-link.active {
+  color: var(--accent);
+}
+
 .terracotta-glow {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -74,6 +78,24 @@ body {
   }
 }
 
+.tagline-wrap {
+  height: 2.2em;
+}
+
+/* Below ~640px the nowrap+typing animation overflows the viewport —
+   drop the effect and let the tagline wrap like normal text instead. */
+@media (max-width: 640px) {
+  .tagline-wrap {
+    height: auto;
+  }
+  .typewriter {
+    white-space: normal;
+    border-right: none;
+    animation: none;
+    width: auto;
+  }
+}
+
 .node-pulse {
   animation: pulse 2s infinite ease-in-out;
 }
@@ -100,27 +122,18 @@ body {
     "opsz" 24;
 }
 
+.form-field:focus {
+  outline: none;
+  border-bottom-width: 2px;
+  border-color: var(--accent);
+  padding-bottom: calc(
+    1rem - 1px
+  ); /* compensate for the extra 1px so content doesn't jump */
+}
+
 @media (prefers-reduced-motion: reduce) {
   .typewriter,
   .node-pulse {
     animation: none;
-  }
-}
-
-.tagline-wrap {
-  height: 2.2em;
-}
-
-/* Below ~640px the nowrap+typing animation overflows the viewport —
-   drop the effect and let the tagline wrap like normal text instead. */
-@media (max-width: 640px) {
-  .tagline-wrap {
-    height: auto;
-  }
-  .typewriter {
-    white-space: normal;
-    border-right: none;
-    animation: none;
-    width: auto;
   }
 }
