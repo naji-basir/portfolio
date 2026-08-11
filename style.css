@@ -12,6 +12,56 @@ body {
   margin: 0;
 }
 
+/* Custom cursor — dot + trailing ring, only where a real mouse exists.
+   Touch devices never see this (there's no cursor to replace). */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  input,
+  textarea {
+    cursor: none;
+  }
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent);
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--accent);
+  opacity: 0.6;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    opacity 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cursor-ring.hover {
+  width: 52px;
+  height: 52px;
+  opacity: 1;
+  background-color: var(--accent-soft);
+}
+
 /* Interactive dotted background canvas */
 #dot-bg {
   position: fixed;
@@ -80,6 +130,8 @@ body {
 
 .tagline-wrap {
   height: 2.2em;
+  display: inline-block;
+  max-width: 100%;
 }
 
 /* Below ~640px the nowrap+typing animation overflows the viewport —

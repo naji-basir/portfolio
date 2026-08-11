@@ -115,6 +115,60 @@ document.querySelectorAll("section").forEach((section) => {
   }
 })();
 
+// Custom cursor — dot follows exactly, ring trails with easing, both
+// grow/react on hover over interactive elements. Skipped entirely on
+// touch devices, since there's no real cursor there to replace.
+(function () {
+  const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+  if (!hasFinePointer) return;
+
+  const dot = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+  if (!dot || !ring) return;
+
+  let dotX = window.innerWidth / 2;
+  let dotY = window.innerHeight / 2;
+  let ringX = dotX;
+  let ringY = dotY;
+
+  window.addEventListener("mousemove", (e) => {
+    dotX = e.clientX;
+    dotY = e.clientY;
+  });
+
+  function loop() {
+    // Dot snaps instantly to the real cursor position; the ring eases
+    // toward it, which is what creates the trailing effect.
+    dot.style.left = `${dotX}px`;
+    dot.style.top = `${dotY}px`;
+
+    ringX += (dotX - ringX) * 0.18;
+    ringY += (dotY - ringY) * 0.18;
+    ring.style.left = `${ringX}px`;
+    ring.style.top = `${ringY}px`;
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // Grow the ring over anything clickable
+  const interactiveSelector = "a, button, input, textarea, [role='button']";
+  document.querySelectorAll(interactiveSelector).forEach((el) => {
+    el.addEventListener("mouseenter", () => ring.classList.add("hover"));
+    el.addEventListener("mouseleave", () => ring.classList.remove("hover"));
+  });
+
+  // Hide the custom cursor when it leaves the window
+  document.addEventListener("mouseleave", () => {
+    dot.style.opacity = "0";
+    ring.style.opacity = "0";
+  });
+  document.addEventListener("mouseenter", () => {
+    dot.style.opacity = "1";
+    ring.style.opacity = "0.6";
+  });
+})();
+
 // Scroll-spy — highlight the nav link matching the section currently in view
 (function () {
   const navLinks = document.querySelectorAll(".nav-link[data-section]");
@@ -201,6 +255,51 @@ document.querySelectorAll("section").forEach((section) => {
         "Something went wrong — please email me directly instead.";
     } finally {
       submitBtn.disabled = false;
+    }
+  });
+})();
+
+// Email link — copies the address to clipboard (works regardless of whether
+// the visitor has a mail client registered) while still letting the
+// underlying mailto: link fire normally for anyone who does have one set up.
+(function () {
+  const link = document.getElementById("email-link");
+  const label = document.getElementById("email-label");
+  const circle = document.getElementById("email-icon-circle");
+  const iconSlot = document.getElementById("email-icon-slot");
+  if (!link || !label || !circle || !iconSlot) return;
+
+  const mailIcon = iconSlot.innerHTML;
+  const checkIcon = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  `;
+
+  let revertTimer = null;
+
+  link.addEventListener("click", async (e) => {
+    const email = link.dataset.email;
+    try {
+      await navigator.clipboard.writeText(email);
+
+      clearTimeout(revertTimer);
+      iconSlot.innerHTML = checkIcon;
+      circle.classList.add("accent-border", "accent-text");
+      label.textContent = "Copied!";
+      label.classList.add("accent-text");
+      label.classList.remove("opacity-60");
+
+      revertTimer = setTimeout(() => {
+        iconSlot.innerHTML = mailIcon;
+        circle.classList.remove("accent-border", "accent-text");
+        label.textContent = "Email";
+        label.classList.remove("accent-text");
+        label.classList.add("opacity-60");
+      }, 1500);
+    } catch (err) {
+      // Clipboard API unavailable (e.g. insecure context) — mailto: still fires
+      // as the normal link behavior, so no explicit fallback needed here.
     }
   });
 })();
